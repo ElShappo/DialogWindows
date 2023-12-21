@@ -77,7 +77,7 @@ export default defineComponent({
         input-debounce="0"
         :options="selectedManagers"
         label="Менеджер"
-        class="col-12 text-h6"
+        class="col-8 text-h6"
       >
         <template v-slot:prepend>
           <q-icon name="person" class="q-pa-sm" />
@@ -96,8 +96,10 @@ export default defineComponent({
         filled
         v-model="modelProductName"
         label="Название продукта"
-        class="col-12 text-h6"
+        class="col-8 text-h6 q-pb-lg"
       />
+
+      <q-separator class="test col-12" :style="{ padding: '1px' }" />
 
       <q-input
         filled
