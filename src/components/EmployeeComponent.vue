@@ -16,18 +16,19 @@ export default defineComponent({
   },
   setup(props) {
     const $q = useQuasar();
-    const selectedManagers = ref(props.managers);
+    const selectedEmployees = ref(props.managers);
     const selectedDomains = ref(props.domains);
     const productName = ref('');
     const jiraLink = ref('');
 
     return {
-      modelManager: ref(null),
+      modelEmployee: ref(null),
+      modelDirector: ref(null),
       modelProductName: ref(null),
       modelJiraLink: ref(null),
       modelDomain: ref(null),
 
-      selectedManagers,
+      selectedEmployees,
       selectedDomains,
       productName,
       jiraLink,
@@ -67,23 +68,23 @@ export default defineComponent({
 
 <template>
   <q-form @submit="onSubmit" @reset="onReset" class="col-5">
-    <main
-      class="row q-pa-lg q-gutter-y-md bg-blue-3"
+    <section
+      class="bg-cyan-3 row q-pa-lg q-gutter-y-md"
       :style="{ borderRadius: '1.5em' }"
     >
       <q-select
         filled
-        v-model="modelManager"
+        v-model="modelEmployee"
         input-debounce="0"
-        :options="selectedManagers"
-        label="Менеджер"
+        :options="selectedEmployees"
+        label="Сотрудник"
         class="col-8 text-h6"
       >
         <template v-slot:prepend>
           <q-icon name="person" class="q-pa-sm" />
         </template>
         <template v-slot:label>
-          <div class="q-pb-md">Менеджер</div>
+          <div class="q-pb-md">Сотрудник</div>
         </template>
         <template v-slot:no-option>
           <q-item>
@@ -105,10 +106,8 @@ export default defineComponent({
         filled
         v-model="modelJiraLink"
         label="Ссылка в Jira"
-        prefix="https://"
         class="col-12 text-h6"
-      >
-      </q-input>
+      />
 
       <q-select
         filled
@@ -129,7 +128,7 @@ export default defineComponent({
       </q-select>
 
       <div class="row justify-end col-12 q-pt-md">
-        <q-btn label="Создать" type="submit" color="primary" unelevated />
+        <q-btn label="Создать" type="submit" color="primary" />
         <!-- <q-btn
           label="Reset"
           type="reset"
@@ -138,12 +137,6 @@ export default defineComponent({
           class="q-ml-sm"
         /> -->
       </div>
-    </main>
+    </section>
   </q-form>
 </template>
-
-<style lang="scss">
-main {
-  background: #5eb1bf;
-}
-</style>
