@@ -16,12 +16,18 @@ export default defineComponent({
   },
   setup(props) {
     const $q = useQuasar();
+    const selectedManagers = ref(props.managers);
     const selectedDomains = ref(props.domains);
     const productName = ref('');
     const jiraLink = ref('');
 
     return {
-      model: ref(null),
+      modelManager: ref(null),
+      modelProductName: ref(null),
+      modelJiraLink: ref(null),
+      modelDomain: ref(null),
+
+      selectedManagers,
       selectedDomains,
       productName,
       jiraLink,
@@ -60,13 +66,16 @@ export default defineComponent({
 </script>
 
 <template>
-  <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md col-6">
-    <section class="bg-cyan-3 row q-pa-lg" :style="{ borderRadius: '1.5em' }">
+  <q-form @submit="onSubmit" @reset="onReset" class="col-5">
+    <section
+      class="bg-cyan-3 row q-pa-lg q-gutter-y-md"
+      :style="{ borderRadius: '1.5em' }"
+    >
       <q-select
         filled
-        v-model="model"
+        v-model="modelManager"
         input-debounce="0"
-        :options="selectedDomains"
+        :options="selectedManagers"
         label="Менеджер"
         class="col-12 text-h6"
       >
@@ -75,6 +84,38 @@ export default defineComponent({
         </template>
         <template v-slot:label>
           <div class="q-pb-md">Менеджер</div>
+        </template>
+        <template v-slot:no-option>
+          <q-item>
+            <q-item-section class="text-grey"> Нет совпадений </q-item-section>
+          </q-item>
+        </template>
+      </q-select>
+
+      <q-input
+        filled
+        v-model="modelProductName"
+        label="Название продукта"
+        class="col-12 text-h6"
+      />
+
+      <q-input
+        filled
+        v-model="modelJiraLink"
+        label="Ссылка в Jira"
+        class="col-12 text-h6"
+      />
+
+      <q-select
+        filled
+        v-model="modelDomain"
+        input-debounce="0"
+        :options="selectedDomains"
+        label="Домен"
+        class="col-12 text-h6"
+      >
+        <template v-slot:label>
+          <div class="q-pb-md">Домен</div>
         </template>
         <template v-slot:no-option>
           <q-item>
