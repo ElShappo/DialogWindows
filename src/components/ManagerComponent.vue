@@ -60,35 +60,39 @@ export default defineComponent({
 </script>
 
 <template>
-  <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-    <div class="bg-cyan row q-pa-lg" :style="{ borderRadius: '1.5em' }">
+  <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md col-6">
+    <section class="bg-cyan-3 row q-pa-lg" :style="{ borderRadius: '1.5em' }">
       <q-select
         filled
         v-model="model"
-        use-input
         input-debounce="0"
-        label="Simple filter"
         :options="selectedDomains"
-        @filter="filterFn"
-        class="col-12"
+        label="Менеджер"
+        class="col-12 text-h6"
       >
+        <template v-slot:prepend>
+          <q-icon name="person" class="q-pa-sm" />
+        </template>
+        <template v-slot:label>
+          <div class="q-pb-md">Менеджер</div>
+        </template>
         <template v-slot:no-option>
           <q-item>
-            <q-item-section class="text-grey"> No results </q-item-section>
+            <q-item-section class="text-grey"> Нет совпадений </q-item-section>
           </q-item>
         </template>
       </q-select>
 
-      <div>
-        <q-btn label="Submit" type="submit" color="primary" />
-        <q-btn
+      <div class="row justify-end col-12 q-pt-md">
+        <q-btn label="Создать" type="submit" color="primary" />
+        <!-- <q-btn
           label="Reset"
           type="reset"
           color="primary"
           flat
           class="q-ml-sm"
-        />
+        /> -->
       </div>
-    </div>
+    </section>
   </q-form>
 </template>
