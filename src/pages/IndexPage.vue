@@ -1,5 +1,5 @@
 <script lang="ts">
-import DialogWindows from 'src/components/DialogWindows.vue';
+import UniversalDialogWindows from 'src/components/UniversalDialogWindows.vue';
 import { Window } from 'src/types';
 import {
   businessUnits,
@@ -13,7 +13,7 @@ import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { DialogWindows },
+  components: { UniversalDialogWindows },
   setup() {
     function checkNotEmpty(val: string | number) {
       if (!val && val !== 0) {
@@ -127,7 +127,7 @@ export default defineComponent({
     class="row items-center justify-center page"
     :style="{ width: '100vw' }"
   >
-    <DialogWindows :windows="windows" />
+    <UniversalDialogWindows :windows="windows" />
   </q-page>
 </template>
 

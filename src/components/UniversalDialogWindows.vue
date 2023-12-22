@@ -1,12 +1,12 @@
 <script lang="ts">
 import { Window } from 'src/types';
 import { PropType, computed, defineComponent, ref } from 'vue';
-import UniversalComponent from './UniversalComponent.vue';
+import UniversalTab from './UniversalTab.vue';
 import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'DialogWindows',
-  components: { UniversalComponent },
+  components: { UniversalTab },
   props: {
     windows: {
       type: Object as PropType<Window[]>,
@@ -19,19 +19,14 @@ export default defineComponent({
       switch ($q.screen.name) {
         case 'lg':
           return '70vw';
-          break;
         case 'xs':
           return '95vw';
-          break;
         case 'sm':
           return '90vw';
-          break;
         case 'md':
           return '70vw';
-          break;
         case 'xl':
           return '70vw';
-          break;
         default:
           return '60vw';
       }
@@ -83,7 +78,7 @@ export default defineComponent({
           :label="window.title"
           class="bg-grey-2"
         >
-          <UniversalComponent :inputs="window.fields" :title="window.title" />
+          <UniversalTab :inputs="window.fields" :title="window.title" />
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
