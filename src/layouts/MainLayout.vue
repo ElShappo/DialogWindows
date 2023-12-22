@@ -3,6 +3,7 @@
     <q-header>
       <nav>
         <q-btn
+          to="/"
           color="primary"
           label="Главная"
           icon="home"
@@ -12,6 +13,7 @@
           no-caps
         />
         <q-btn
+          to="/table"
           color="primary"
           label="Таблица"
           icon="table_chart"
@@ -24,7 +26,7 @@
           color="primary"
           label="FAQ"
           icon="help"
-          @click="getRecords"
+          @click="alert"
           class="text-h4 text-white q-pa-lg"
           flat
           no-caps
@@ -38,11 +40,21 @@
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'MainLayout',
   setup() {
+    const $q = useQuasar();
+
+    function alert() {
+      $q.dialog({
+        title: 'Кратко о проекте',
+        message: 'Здесь будет описание',
+      });
+    }
+
     async function getRecords() {
       const response = await fetch('/api/get_records');
       const result = await response.json();
@@ -50,6 +62,7 @@ export default defineComponent({
     }
     return {
       getRecords,
+      alert,
     };
   },
 });
