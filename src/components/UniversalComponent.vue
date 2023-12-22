@@ -26,7 +26,7 @@ export default defineComponent({
       inputModels,
       inputRefs,
 
-      onSubmit() {
+      async onSubmit() {
         let hasErrors = false;
         console.log('Running onSubmit');
         for (let inputRef of inputRefs.value) {
@@ -36,18 +36,15 @@ export default defineComponent({
           }
         }
         if (!hasErrors) {
+          let response = await fetch('/api/hello');
+          let result = await response.text();
+          console.log(result);
+
           $q.notify({
             color: 'green-4',
             textColor: 'white',
             icon: 'cloud_done',
             message: 'Успешно!',
-          });
-        } else {
-          $q.notify({
-            color: 'green-4',
-            textColor: 'white',
-            icon: 'cloud_done',
-            message: 'Форма составлена некорректно!',
           });
         }
       },
