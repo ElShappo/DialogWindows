@@ -2,6 +2,7 @@
 import { Window } from 'src/types';
 import { PropType, defineComponent, ref } from 'vue';
 import UniversalComponent from './UniversalComponent.vue';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'DialogWindows',
@@ -13,7 +14,27 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const $q = useQuasar();
+    let size = ref('');
+    switch ($q.screen.name) {
+      case 'lg':
+        size.value = '60vw';
+        break;
+      case 'xs':
+        size.value = '95vw';
+        break;
+      case 'sm':
+        size.value = '90vw';
+        break;
+      case 'md':
+        size.value = '70vw';
+        break;
+      case 'xl':
+        size.value = '60vw';
+        break;
+    }
     return {
+      size,
       tab: ref(props.windows[0].title),
       alert: ref(false),
     };
@@ -31,7 +52,7 @@ export default defineComponent({
   />
   <q-dialog v-model="alert">
     <q-card
-      :style="{ borderRadius: '1.5em', width: '50vw' }"
+      :style="{ borderRadius: '1.5em', width: size }"
       class="q-pa-sm bg-grey-2"
     >
       <q-tabs
