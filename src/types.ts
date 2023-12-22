@@ -6,7 +6,7 @@ export interface DialogField {
   hint?: string
   prefix?: string
   iconName?: string
-  rules?: [(num: number | string) => boolean | string]
+  rules?: ((num: number | string) => boolean | string)[]
   class?: string[]
 }
 

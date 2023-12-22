@@ -65,6 +65,7 @@ export default defineComponent({
               label: 'Сотрудник',
               inputType: 'select',
               iconName: 'person',
+              rules: [checkNotEmpty],
               class: ['col-12', 'text-h6'],
               availableValues: employees,
             },
@@ -72,6 +73,7 @@ export default defineComponent({
               label: 'Руководитель',
               inputType: 'select',
               iconName: 'person',
+              rules: [checkNotEmpty],
               class: ['col-12', 'text-h6'],
               availableValues: directors,
             },
@@ -79,6 +81,7 @@ export default defineComponent({
               label: 'Тип ставки',
               inputType: 'select',
               iconName: 'person',
+              rules: [checkNotEmpty],
               class: ['col-12', 'text-h6'],
               availableValues: rates,
             },
@@ -86,6 +89,7 @@ export default defineComponent({
               label: 'Бизнес единица',
               inputType: 'select',
               iconName: 'person',
+              rules: [checkNotEmpty],
               class: ['col-12', 'text-h6'],
               availableValues: businessUnits,
             },
@@ -94,6 +98,7 @@ export default defineComponent({
               inputType: 'number',
               class: ['col-12', 'text-h6'],
               rules: [
+                checkNotEmpty,
                 (val) => {
                   if (+val < 0 || +val > 100) {
                     return 'Число должно быть в диапазоне от 0 до 100';
@@ -106,6 +111,7 @@ export default defineComponent({
             {
               label: 'Должность',
               inputType: 'text',
+              rules: [checkNotEmpty],
               class: ['col-12', 'text-h6'],
             },
           ],
