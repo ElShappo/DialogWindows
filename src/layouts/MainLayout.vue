@@ -4,14 +4,8 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   name: 'MainLayout',
   setup() {
-    async function getRecords() {
-      const response = await fetch('/api/get_records');
-      const result = await response.json();
-      console.log(result);
-    }
     return {
       alert: ref(false),
-      getRecords,
     };
   },
 });
@@ -20,36 +14,67 @@ export default defineComponent({
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header>
-      <nav>
-        <q-btn
-          to="/"
-          color="primary"
-          label="Главная"
-          icon="home"
-          @click="getRecords"
-          class="text-h4 text-white q-pa-lg"
-          flat
-          no-caps
-        />
-        <q-btn
-          to="/table"
-          color="primary"
-          label="Таблица"
-          icon="table_chart"
-          @click="getRecords"
-          class="text-h4 text-white q-pa-lg"
-          flat
-          no-caps
-        />
-        <q-btn
-          color="primary"
-          label="FAQ"
-          icon="help"
-          @click="alert = true"
-          class="text-h4 text-white q-pa-lg"
-          flat
-          no-caps
-        />
+      <nav class="row">
+        <div class="col">
+          <q-btn
+            to="/"
+            color="primary"
+            label="Главная"
+            icon="home"
+            class="text-h4 text-white q-pa-lg"
+            flat
+            no-caps
+          />
+          <q-btn
+            to="/table"
+            color="primary"
+            label="Таблица"
+            icon="table_chart"
+            class="text-h4 text-white q-pa-lg"
+            flat
+            no-caps
+          />
+          <q-btn
+            color="primary"
+            label="FAQ"
+            icon="help"
+            @click="alert = true"
+            class="text-h4 text-white q-pa-lg"
+            flat
+            no-caps
+          />
+        </div>
+        <div class="col row justify-end">
+          <q-btn
+            color="primary"
+            label="CV"
+            target="_blank"
+            href="https://hh.ru/resume/517802e0ff0b4c11110039ed1f4f5177584a54"
+            icon="badge"
+            class="text-h4 text-white q-pa-lg"
+            flat
+            no-caps
+          />
+          <q-btn
+            color="primary"
+            label="Мой веб-сайт"
+            target="_blank"
+            href="https://elshappo.netlify.app/"
+            icon="web"
+            class="text-h4 text-white q-pa-lg"
+            flat
+            no-caps
+          />
+          <q-btn
+            color="primary"
+            label="GitHub"
+            target="_blank"
+            href="https://github.com/ElShappo"
+            class="text-h4 text-white q-pa-lg"
+            flat
+            no-caps
+          />
+        </div>
       </nav>
     </q-header>
     <q-dialog v-model="alert">
