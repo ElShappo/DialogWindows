@@ -1,6 +1,5 @@
 <script lang="ts">
 import { PropType, defineComponent, ref } from 'vue';
-import ManagerComponent from './ManagerComponent.vue';
 import UniversalComponent from './UniversalComponent.vue';
 import { DialogAnyField } from 'src/types';
 import { domains } from 'src/constants';
@@ -10,12 +9,8 @@ export default defineComponent({
   name: 'DialogWindows',
   components: { UniversalComponent },
   props: {
-    managers: {
-      type: Object as PropType<readonly string[]>,
-      required: true,
-    },
-    domains: {
-      type: Object as PropType<readonly string[]>,
+    windows: {
+      type: Object as PropType<Window[]>,
       required: true,
     },
   },

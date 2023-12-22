@@ -20,6 +20,10 @@ export interface DialogNumberField extends DialogField {
 }
 
 export type DialogAnyField = (DialogField | DialogSelectField | DialogNumberField)
+export type Window = {
+  title: string
+  fields: DialogAnyField[]
+}
 
 export type Input = typeof inputs[number]
 export type Domain = typeof domains[number]
