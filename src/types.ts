@@ -6,6 +6,7 @@ export interface DialogField {
   hint?: string
   prefix?: string
   iconName?: string
+  rules?: [(num: number | string) => boolean | string]
   class?: string[]
 }
 
@@ -16,7 +17,6 @@ export interface DialogSelectField extends DialogField {
 
 export interface DialogNumberField extends DialogField {
   inputType: 'number'
-  restrictions: (num: number) => boolean
 }
 
 export type DialogAnyField = (DialogField | DialogSelectField | DialogNumberField)

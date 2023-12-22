@@ -1,9 +1,7 @@
 <script lang="ts">
+import { Window } from 'src/types';
 import { PropType, defineComponent, ref } from 'vue';
 import UniversalComponent from './UniversalComponent.vue';
-import { DialogAnyField } from 'src/types';
-import { domains } from 'src/constants';
-// import EmployeeComponent from './EmployeeComponent.vue';
 
 export default defineComponent({
   name: 'DialogWindows',
@@ -14,44 +12,10 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     return {
-      tab: ref('Data'),
+      tab: ref(props.windows[0].title),
       alert: ref(false),
-
-      inputs: ref<DialogAnyField[]>([
-        {
-          label: 'Менеджер',
-          inputType: 'select',
-          iconName: 'person',
-          class: ['col-8', 'text-h6'],
-          availableValues: [
-            'Станислав',
-            'Евгений',
-            'Виталий',
-            'Григорий',
-            'Петр',
-          ],
-        },
-        {
-          label: 'Название продукта',
-          inputType: 'text',
-          class: ['col-8', 'text-h6'],
-        },
-        {
-          label: 'Ссылка в Jira',
-          inputType: 'text',
-          prefix: 'https://',
-          class: ['col-12', 'text-h6'],
-        },
-        {
-          label: 'Домен',
-          inputType: 'select',
-          iconName: 'person',
-          class: ['col-12', 'text-h6'],
-          availableValues: domains,
-        },
-      ]),
     };
   },
 });
@@ -79,17 +43,23 @@ export default defineComponent({
         narrow-indicator
         dense
       >
-        <q-tab name="Data" label="Данные" />
-        <q-tab name="Create employee" label="Создать сотрудника" />
+        <q-tab
+          v-for="window in windows"
+          :key="window.title"
+          :name="window.title"
+          :label="window.title"
+        >
+        </q-tab>
       </q-tabs>
       <q-tab-panels v-model="tab" animated>
-        <q-tab-panel name="Data" class="bg-grey-2">
-          <UniversalComponent :inputs="inputs" />
-        </q-tab-panel>
-
-        <q-tab-panel name="Create employee">
-          <div class="text-h6">Создать сотрудника</div>
-          <EmployeeComponent />
+        <q-tab-panel
+          v-for="window in windows"
+          :key="window.title"
+          :name="window.title"
+          :label="window.title"
+          class="bg-grey-2"
+        >
+          <UniversalComponent :inputs="window.fields" />
         </q-tab-panel>
       </q-tab-panels>
     </q-card>

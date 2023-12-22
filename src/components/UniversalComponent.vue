@@ -2,7 +2,9 @@
 import { useQuasar } from 'quasar';
 import {
   DialogAnyField,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   DialogNumberField,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   DialogSelectField,
 } from 'src/types';
 import { PropType, defineComponent, ref } from 'vue';
@@ -17,18 +19,37 @@ export default defineComponent({
   },
   setup(props) {
     const $q = useQuasar();
-    const inputRefs = ref(new Array(props.inputs.length));
+    const inputModels = ref(new Array(props.inputs.length));
+    const inputRefs = ref([]);
 
     return {
+      inputModels,
       inputRefs,
 
       onSubmit() {
-        $q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'cloud_done',
-          message: 'Submitted',
-        });
+        let hasErrors = false;
+        console.log('Running onSubmit');
+        for (let inputRef of inputRefs.value) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          if ((inputRef as any).hasError) {
+            hasErrors = true;
+          }
+        }
+        if (!hasErrors) {
+          $q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Успешно!',
+          });
+        } else {
+          $q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Форма составлена некорректно!',
+          });
+        }
       },
     };
   },
@@ -45,8 +66,12 @@ export default defineComponent({
         <q-select
           v-if="input.inputType === 'select'"
           filled
-          v-model="inputRefs[index]"
+          bottom-slots
+          v-model="inputModels[index]"
+          ref="inputRefs"
           input-debounce="0"
+          lazy-rules
+          :rules="input.rules"
           :options="(input as DialogSelectField).availableValues"
           :label="input.label"
           :prefix="input.prefix"
@@ -58,9 +83,24 @@ export default defineComponent({
         </q-select>
 
         <q-input
-          v-else-if="input.inputType === 'text'"
+          v-else-if="input.inputType === 'number'"
+          type="number"
           filled
-          v-model="inputRefs[index]"
+          lazy-rules
+          v-model="inputModels[index]"
+          ref="inputRefs"
+          :label="input.label"
+          :prefix="input.prefix"
+          :rules="(input as DialogNumberField).rules"
+          :class="input.class"
+        />
+        <q-input
+          v-else
+          filled
+          lazy-rules
+          :rules="input.rules"
+          v-model="inputModels[index]"
+          ref="inputRefs"
           :label="input.label"
           :prefix="input.prefix"
           :class="input.class"
