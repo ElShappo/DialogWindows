@@ -32,28 +32,28 @@ export default defineComponent({
               inputType: 'select',
               iconName: 'person',
               rules: [checkNotEmpty],
-              class: ['col-8', 'text-h6'],
+              class: ['col-8', 'col-md-5', 'text-h6'],
               availableValues: managers,
             },
             {
               label: 'Название продукта',
               inputType: 'text',
               rules: [checkNotEmpty],
-              class: ['col-8', 'text-h6'],
+              class: ['col-8', 'col-md-5', 'text-h6'],
             },
             {
               label: 'Ссылка в Jira',
               inputType: 'text',
               rules: [checkNotEmpty],
               prefix: 'https://',
-              class: ['col-12', 'text-h6'],
+              class: ['col-12', 'col-md-5', 'text-h6'],
             },
             {
               label: 'Домен',
               inputType: 'select',
               iconName: 'person',
               rules: [checkNotEmpty],
-              class: ['col-12', 'text-h6'],
+              class: ['col-12', 'col-md-5', 'text-h6'],
               availableValues: domains,
             },
           ],
@@ -66,7 +66,7 @@ export default defineComponent({
               inputType: 'select',
               iconName: 'person',
               rules: [checkNotEmpty],
-              class: ['col-12', 'text-h6'],
+              class: ['col-12', 'col-md-5', 'text-h6'],
               availableValues: employees,
             },
             {
@@ -74,7 +74,7 @@ export default defineComponent({
               inputType: 'select',
               iconName: 'person',
               rules: [checkNotEmpty],
-              class: ['col-12', 'text-h6'],
+              class: ['col-12', 'col-md-5', 'text-h6'],
               availableValues: directors,
             },
             {
@@ -82,7 +82,7 @@ export default defineComponent({
               inputType: 'select',
               iconName: 'person',
               rules: [checkNotEmpty],
-              class: ['col-12', 'text-h6'],
+              class: ['col-12', 'col-md-5', 'text-h6'],
               availableValues: rates,
             },
             {
@@ -90,13 +90,13 @@ export default defineComponent({
               inputType: 'select',
               iconName: 'person',
               rules: [checkNotEmpty],
-              class: ['col-12', 'text-h6'],
+              class: ['col-12', 'col-md-5', 'text-h6'],
               availableValues: businessUnits,
             },
             {
               label: 'Процент капитализации',
               inputType: 'number',
-              class: ['col-12', 'text-h6'],
+              class: ['col-12', 'col-md-5', 'text-h6'],
               rules: [
                 checkNotEmpty,
                 (val) => {
@@ -112,7 +112,7 @@ export default defineComponent({
               label: 'Должность',
               inputType: 'text',
               rules: [checkNotEmpty],
-              class: ['col-12', 'text-h6'],
+              class: ['col-12', 'col-md-5', 'text-h6'],
             },
           ],
         },
@@ -123,7 +123,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <q-page class="row items-center justify-evenly page">
+  <q-page
+    class="row items-center justify-center page"
+    :style="{ width: '100vw' }"
+  >
     <DialogWindows :windows="windows" />
   </q-page>
 </template>

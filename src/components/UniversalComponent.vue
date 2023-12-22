@@ -59,7 +59,7 @@ export default defineComponent({
 <template>
   <q-form @submit="onSubmit">
     <main
-      class="row q-pa-lg q-gutter-y-md bg-blue-3 bg-red"
+      class="row q-pa-lg q-gutter-y-md bg-blue-3 bg-red justify-md-center q-gutter-x-md"
       :style="{ borderRadius: '1.5em' }"
     >
       <template v-for="(input, index) in inputs" :key="input.label">
