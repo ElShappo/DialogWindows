@@ -6,6 +6,7 @@ import {
   DialogNumberField,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   DialogSelectField,
+  POSTBody,
 } from 'src/types';
 import { PropType, defineComponent, ref } from 'vue';
 
@@ -13,7 +14,11 @@ export default defineComponent({
   name: 'ManagerComponent',
   props: {
     inputs: {
-      type: Object as PropType<DialogAnyField[]>,
+      type: Object as PropType<readonly DialogAnyField[]>,
+      required: true,
+    },
+    title: {
+      type: Object as PropType<string>,
       required: true,
     },
   },
@@ -36,7 +41,24 @@ export default defineComponent({
           }
         }
         if (!hasErrors) {
-          let response = await fetch('/api/hello');
+          const body: POSTBody = [];
+          for (let i = 0; i < props.inputs.length; ++i) {
+            body.push({
+              title: props.title,
+              label: props.inputs[i].label,
+              value: inputModels.value[i],
+            });
+          }
+          const bodyStringified = JSON.stringify(body);
+          console.log(bodyStringified);
+
+          let response = await fetch('/api/add_records', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+            },
+            body: bodyStringified,
+          });
           let result = await response.text();
           console.log(result);
 

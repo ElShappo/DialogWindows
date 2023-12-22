@@ -83,7 +83,7 @@ export default defineComponent({
           :label="window.title"
           class="bg-grey-2"
         >
-          <UniversalComponent :inputs="window.fields" />
+          <UniversalComponent :inputs="window.fields" :title="window.title" />
         </q-tab-panel>
       </q-tab-panels>
     </q-card>

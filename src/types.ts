@@ -25,5 +25,13 @@ export type Window = {
   fields: DialogAnyField[]
 }
 
+export type POSTRecord = {
+  title: string
+  label: string
+  value: string | number
+}
+
+export type POSTBody = POSTRecord[]
+
 export type Input = typeof inputs[number]
 export type Domain = typeof domains[number]
