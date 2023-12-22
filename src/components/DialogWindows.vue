@@ -1,10 +1,14 @@
 <script lang="ts">
 import { PropType, defineComponent, ref } from 'vue';
 import ManagerComponent from './ManagerComponent.vue';
+import UniversalComponent from './UniversalComponent.vue';
+import { DialogAnyField } from 'src/types';
+import { domains } from 'src/constants';
+// import EmployeeComponent from './EmployeeComponent.vue';
 
 export default defineComponent({
   name: 'DialogWindows',
-  components: { ManagerComponent },
+  components: { UniversalComponent },
   props: {
     managers: {
       type: Object as PropType<readonly string[]>,
@@ -19,6 +23,40 @@ export default defineComponent({
     return {
       tab: ref('Data'),
       alert: ref(false),
+
+      inputs: ref<DialogAnyField[]>([
+        {
+          label: 'Менеджер',
+          inputType: 'select',
+          iconName: 'person',
+          class: ['col-8', 'text-h6'],
+          availableValues: [
+            'Станислав',
+            'Евгений',
+            'Виталий',
+            'Григорий',
+            'Петр',
+          ],
+        },
+        {
+          label: 'Название продукта',
+          inputType: 'text',
+          class: ['col-8', 'text-h6'],
+        },
+        {
+          label: 'Ссылка в Jira',
+          inputType: 'text',
+          prefix: 'https://',
+          class: ['col-12', 'text-h6'],
+        },
+        {
+          label: 'Домен',
+          inputType: 'select',
+          iconName: 'person',
+          class: ['col-12', 'text-h6'],
+          availableValues: domains,
+        },
+      ]),
     };
   },
 });
@@ -33,7 +71,10 @@ export default defineComponent({
     @click="alert = true"
   />
   <q-dialog v-model="alert">
-    <q-card :style="{ borderRadius: '1.5em' }" class="q-pa-sm bg-grey-2">
+    <q-card
+      :style="{ borderRadius: '1.5em', width: '50vw' }"
+      class="q-pa-sm bg-grey-2"
+    >
       <q-tabs
         v-model="tab"
         class="text-grey-10 q-pb-md"
@@ -48,12 +89,12 @@ export default defineComponent({
       </q-tabs>
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="Data" class="bg-grey-2">
-          <ManagerComponent :managers="managers" :domains="domains" />
+          <UniversalComponent :inputs="inputs" />
         </q-tab-panel>
 
         <q-tab-panel name="Create employee">
           <div class="text-h6">Создать сотрудника</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <EmployeeComponent />
         </q-tab-panel>
       </q-tab-panels>
     </q-card>

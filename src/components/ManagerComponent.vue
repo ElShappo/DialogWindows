@@ -14,10 +14,8 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup() {
     const $q = useQuasar();
-    const selectedManagers = ref(props.managers);
-    const selectedDomains = ref(props.domains);
     const productName = ref('');
     const jiraLink = ref('');
 
@@ -27,8 +25,6 @@ export default defineComponent({
       modelJiraLink: ref(null),
       modelDomain: ref(null),
 
-      selectedManagers,
-      selectedDomains,
       productName,
       jiraLink,
 
@@ -40,33 +36,13 @@ export default defineComponent({
           message: 'Submitted',
         });
       },
-      onReset() {
-        // name.value = null
-        // age.value = null
-        // accept.value = false
-      },
-      filterFn(value: string, update: (doneFn: () => void) => void) {
-        if (value === '') {
-          update(() => {
-            selectedDomains.value = props.domains;
-          });
-          return;
-        }
-
-        update(() => {
-          const needle = value.toLowerCase();
-          selectedDomains.value = props.domains.filter(
-            (v) => v.toLowerCase().indexOf(needle) > -1
-          );
-        });
-      },
     };
   },
 });
 </script>
 
 <template>
-  <q-form @submit="onSubmit" @reset="onReset" class="col-5">
+  <q-form @submit="onSubmit" class="col-5">
     <main
       class="row q-pa-lg q-gutter-y-md bg-blue-3"
       :style="{ borderRadius: '1.5em' }"
@@ -75,20 +51,12 @@ export default defineComponent({
         filled
         v-model="modelManager"
         input-debounce="0"
-        :options="selectedManagers"
+        :options="managers"
         label="Менеджер"
         class="col-8 text-h6"
       >
         <template v-slot:prepend>
           <q-icon name="person" class="q-pa-sm" />
-        </template>
-        <template v-slot:label>
-          <div class="q-pb-md">Менеджер</div>
-        </template>
-        <template v-slot:no-option>
-          <q-item>
-            <q-item-section class="text-grey"> Нет совпадений </q-item-section>
-          </q-item>
         </template>
       </q-select>
 
@@ -114,36 +82,15 @@ export default defineComponent({
         filled
         v-model="modelDomain"
         input-debounce="0"
-        :options="selectedDomains"
+        :options="domains"
         label="Домен"
         class="col-12 text-h6"
       >
-        <template v-slot:label>
-          <div class="q-pb-md">Домен</div>
-        </template>
-        <template v-slot:no-option>
-          <q-item>
-            <q-item-section class="text-grey"> Нет совпадений </q-item-section>
-          </q-item>
-        </template>
       </q-select>
 
       <div class="row justify-end col-12 q-pt-md">
         <q-btn label="Создать" type="submit" color="primary" unelevated />
-        <!-- <q-btn
-          label="Reset"
-          type="reset"
-          color="primary"
-          flat
-          class="q-ml-sm"
-        /> -->
       </div>
     </main>
   </q-form>
 </template>
-
-<style lang="scss">
-main {
-  background: #5eb1bf;
-}
-</style>
